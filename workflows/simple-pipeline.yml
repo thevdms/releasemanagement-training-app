@@ -1,0 +1,22 @@
+name: Simple Pipeline
+# Single branch → Single org deployment
+
+on:
+  push:
+    branches: [develop, main, release]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+  pull_request:
+    branches: [develop, main, release]
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+
+jobs:
+  salesforce-cicd:
+    uses: thevdms/release-management-training-pipeline/.github/workflows/sfdk-cicd-00-main.yml@v2
+    secrets: inherit
+    with:
+      source-path: "force-app"
+      docker-image: "ghcr.io/thevdms/release-management-training-pipeline/sf-deploy-kit:v2"
